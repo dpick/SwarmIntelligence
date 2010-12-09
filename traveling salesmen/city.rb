@@ -1,13 +1,11 @@
 require 'connection'
 
 class City
-  attr_accessor :neighbors, :id, :x, :y
+  attr_accessor :neighbors, :id
 
-  def initialize(id, neighbors = [], x = 0, y = 0)
+  def initialize(id, neighbors = [])
     @id = id
     @neighbors = neighbors
-    @x = x
-    @y = y
   end
 
   def visibility(city)
@@ -32,7 +30,7 @@ class City
     return false
   end
 
-  def add_neighbor(city)
-    @neighbors << Connection.new(self, city)
+  def add_neighbor(city, distance)
+    @neighbors << Connection.new(self, city, distance)
   end
 end
