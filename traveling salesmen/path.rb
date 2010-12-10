@@ -3,6 +3,7 @@ class Path
 
   def initialize(config_file)
     @cities = {}
+    @num_ants = 10
 
     File.open(config_file) do |infile|
       while (line = infile.gets)
@@ -15,8 +16,15 @@ class Path
         @cities[city_b].add_neighbor(@cities[city_a], distance)
       end
     end
+
+    0.upto(@num_ants).each do |i|
+      @ants << Ant.new(@cities.values)
+    end
   end
 
+  def search
+    
+  end
 
   def city_created?(city_id)
     @cities.keys.each { |city| return true if city == city_id}

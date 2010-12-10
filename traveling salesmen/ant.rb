@@ -2,7 +2,7 @@ class Ant
   attr_accessor :cities, :current_city
 
   def initialize(cities)
-    @cities = cities
+    @cities = cities.sort { rand }
     @current_city = cities.first
   end
 
