@@ -1,24 +1,22 @@
 class Ant
   attr_accessor :cities, :current_city, :path, :id
 
-  def initialize(id, cities, alpha, beta)
+  def initialize(id, current_city, alpha, beta)
     @id = id
-    @cities = cities
-    @current_city = cities[rand(cities.size)]
-    @path = []
+    @current_city = current_city
+    @path = [current_city]
     @alpha, @beta = alpha, beta
   end
 
-  def visit(visited_city)
-    puts "Ant #{@id} visiting city #{visited_city.city_id}"
-    @cities.delete_if { |city| city.city_id == visited_city.city_id }
-    @current_city = visited_city
-    @path << visited_city
-  end
-
-  def visited?(place)
-    @cities.each { |city| return false if place.id == city.city_id }
-    return true
+  def visit
+    if city_to_visit = @current_city.unvisited(@path)
+      city_to_visit = city_to_visit.city_b
+      puts "Ant #{id} is visiting city #{city_to_visit.city_id}"
+      @current_city = city_to_visit
+      @path << city_to_visit
+    else
+      puts 'done'
+    end
   end
 
   def transition_rule

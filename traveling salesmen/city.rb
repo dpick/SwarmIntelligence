@@ -34,4 +34,14 @@ class City
   def add_neighbor(city, distance)
     @neighbors << Connection.new(self, city, distance)
   end
+
+  def unvisited(path)
+    @neighbors.each do |neighbor|
+      if not path.include?(neighbor.city_b)
+        return neighbor
+      end
+    end
+
+    return nil
+  end
 end

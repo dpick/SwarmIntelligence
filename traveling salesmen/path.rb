@@ -7,7 +7,7 @@ class Path
 
   def initialize(config_file)
     @cities = {}
-    @num_ants = 1
+    @num_ants = 2
     @shortest = 0
     @ants = []
     alpha = 0
@@ -27,20 +27,23 @@ class Path
       end
     end
 
-    0.upto(@num_ants).each do |i|
-      @ants << Ant.new(i, @cities.values, alpha, beta)
-      current = @ants.last
-      puts "#{current.id} current city is #{current.current_city.city_id}"
+    1.upto(@num_ants).each do |i|
+      ant = Ant.new(i, @cities.values[rand(@cities.size)], alpha, beta)
+      puts "New Ant at #{ant.current_city.city_id}"
+      @ants <<  ant
     end
   end
 
   def search
+    @ants.each do |ant|
+      puts "Ant #{ant.id} is starting at city #{ant.current_city.city_id}"
+    end
     num_iterations = 10
 
     #0.upto(num_iterations).each do |iteration|
     0.upto(@cities.size - 1).each do |i|
       @ants.each do |ant|
-        ant.visit(ant.current_city.neighbors.first.city_b)
+        ant.visit
       end
     end
     #end
