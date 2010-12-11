@@ -10,27 +10,37 @@ class Path
     @num_ants = 2
     @shortest = 0
     @ants = []
-    alpha = 0
-    beta = 0
+    @alpha = 0
+    @beta = 0
 
+    parse_file(config_file)
+
+    create_ants
+  end
+
+  def create_ants
+    city_objects = @cities.values
+
+    1.upto(@num_ants).each do |i|
+      ant = Ant.new(i, city_objects[rand(@cities.size)], @alpha, @beta)
+      puts "New Ant at #{ant.current_city.city_id}"
+      @ants <<  ant
+    end
+  end
+
+  def parse_file(config_file)
     File.open(config_file) do |infile|
       while (line = infile.gets)
         city_a, city_b, distance = line.split(" ")
 
-        @cities[city_a] = City.new(city_a, alpha, beta) unless city_created?(city_a)
-        @cities[city_b] = City.new(city_b, alpha, beta) unless city_created?(city_b)
+        @cities[city_a] = City.new(city_a, @alpha, @beta) unless city_created?(city_a)
+        @cities[city_b] = City.new(city_b, @alpha, @beta) unless city_created?(city_b)
 
-        @cities[city_a].add_neighbor(@cities[city_b], distance)
-        @cities[city_b].add_neighbor(@cities[city_a], distance)
+        @cities[city_a].add_neighbor(@cities[city_b], distance.to_i)
+        @cities[city_b].add_neighbor(@cities[city_a], distance.to_i)
 
         @shortest += distance.to_i
       end
-    end
-
-    1.upto(@num_ants).each do |i|
-      ant = Ant.new(i, @cities.values[rand(@cities.size)], alpha, beta)
-      puts "New Ant at #{ant.current_city.city_id}"
-      @ants <<  ant
     end
   end
 

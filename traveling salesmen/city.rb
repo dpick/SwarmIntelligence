@@ -36,12 +36,13 @@ class City
   end
 
   def unvisited(path)
+    to_return = []
     @neighbors.each do |neighbor|
       if not path.include?(neighbor.city_b)
-        return neighbor
+        to_return << neighbor
       end
     end
 
-    return nil
+    return to_return
   end
 end
