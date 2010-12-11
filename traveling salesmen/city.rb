@@ -1,11 +1,12 @@
 require 'connection'
 
 class City
-  attr_accessor :neighbors, :id
+  attr_accessor :neighbors, :city_id
 
-  def initialize(id, neighbors = [])
-    @id = id
+  def initialize(city_id, alpha, beta, neighbors = [])
+    @city_id = city_id
     @neighbors = neighbors
+    @alpha, @beta = alpha, beta
   end
 
   def visibility(city)
@@ -21,7 +22,7 @@ class City
   end
 
   def connected_to?(city)
-    return false if city.id == @id
+    return false if city.city_id == @city_id
 
     @neighbors.each do |connection|
       return true if connection.contains?(city)
