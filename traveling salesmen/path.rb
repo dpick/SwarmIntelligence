@@ -22,7 +22,7 @@ class Path
     city_objects = @cities.values
 
     1.upto(@num_ants).each do |i|
-      ant = Ant.new(i, city_objects[rand(@cities.size)], @alpha, @beta, 100, @num_ants)
+      ant = Ant.new(i, city_objects[rand(@cities.size)], @alpha, @beta, 100.0, 5.0, @num_ants)
       puts "New Ant #{i} at #{ant.current_city.city_id}"
       @ants <<  ant
     end
@@ -47,22 +47,27 @@ class Path
   def search
     num_iterations = 10
 
-    #0.upto(num_iterations).each do |iteration|
-    0.upto(@cities.size - 1).each do |i|
-      @ants.each do |ant|
-        ant.visit
+    0.upto(num_iterations).each do |iteration|
+      0.upto(@cities.size - 1).each do |i|
+        @ants.each do |ant|
+          ant.visit
+        end
       end
-    end
 
-    #see if a shorter path was found
-    @ants.each do |ant|
-      distance = ant.path_distance
-      @shortest_path = distance if distance < @shortest_path
-      puts "Ant #{ant.id}'s path_distance was #{distance}"
+      #see if a shorter path was found
+      @ants.each do |ant|
+        distance = ant.path_distance
+        @shortest_path = distance if distance < @shortest_path
+        print "Ant #{ant.id}'s path_distance was #{distance} "
+        ant.print_path
+        puts ""
+      end
+
+      @ants.each { |ant| ant.update_path_phermones(@shortest_path) }
+
     end
 
     puts "shortest path was #{@shortest_path}"
-    #end
   end
 
   def city_created?(city_id)

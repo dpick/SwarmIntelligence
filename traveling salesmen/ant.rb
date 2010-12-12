@@ -3,21 +3,34 @@ require 'pp'
 class Ant
   attr_accessor :current_city, :path, :id
 
-  def initialize(id, current_city, alpha, beta, q, num_ants)
+  def initialize(id, current_city, alpha, beta, q, e, num_ants)
     @id = id
     @current_city = current_city
     @starting_city = current_city
     @previous_cities = [current_city]
     @path = []
     #woot random constants the book gave me
-    @alpha, @beta, @q, @num_ants = alpha, beta, q, num_ants
+    @alpha, @beta, @q, @e, @num_ants = alpha, beta, q, e, num_ants
   end
 
-  def update_path_phermones
+  def update_path_phermones(shortest_path_distance)
     @path.each do |connection|
-      value = row * connection.phermone_level
-      #value += @num_ants.each
-      connection.update_phermone_level()
+      value = (1 - 0.5) * connection.phermone_level
+      value += @num_ants * @q / path_distance
+      value += @e * (@q / shortest_path_distance)
+
+      connection.phermone_level = value
+    end
+
+    @path = []
+    @previous_cities = [@starting_city]
+    @current_city = @starting_city
+  end
+
+  def print_path
+    print "#{@path.first.city_a.city_id} -> "
+    @path.each do |connection|
+      print "#{connection.city_b.city_id} -> "
     end
   end
 
@@ -33,8 +46,6 @@ class Ant
       @path << connection
 
       city_to_visit = connection.city_b
-
-      puts "Ant #{id} is visiting city #{city_to_visit.city_id}"
 
       @current_city = city_to_visit
       @previous_cities << city_to_visit
