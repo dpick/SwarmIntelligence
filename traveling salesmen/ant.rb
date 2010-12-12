@@ -6,19 +6,28 @@ class Ant
   def initialize(id, current_city, alpha, beta)
     @id = id
     @current_city = current_city
-    @path = [current_city]
+    @previous_cities = [current_city]
+    @path = []
     @alpha, @beta = alpha, beta
   end
 
-  def visit
-    if city_to_visit = path_with_strongest_phermones
+  def path_distance
+    @path.inject(0) do |sum, connection|
+      sum + connection.distance
+    end
+  end
 
-      city_to_visit = city_to_visit.city_b
+  def visit
+    if connection = path_with_strongest_phermones
+
+      @path << connection
+
+      city_to_visit = connection.city_b
 
       puts "Ant #{id} is visiting city #{city_to_visit.city_id}"
 
       @current_city = city_to_visit
-      @path << city_to_visit
+      @previous_cities << city_to_visit
     else
       puts 'done'
     end
@@ -28,7 +37,7 @@ class Ant
     max_value = 0
     max_neighbor = nil
 
-    @current_city.unvisited(@path).each do |neighbor|
+    @current_city.unvisited(@previous_cities).each do |neighbor|
       temp = transition_rule(neighbor)
       max_value, max_neighbor = temp, neighbor if temp >= max_value
     end

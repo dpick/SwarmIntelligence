@@ -8,7 +8,7 @@ class Path
   def initialize(config_file)
     @cities = {}
     @num_ants = 2
-    @shortest = 0
+    @shortest_path = 0
     @ants = []
     @alpha = 0
     @beta = 0
@@ -39,7 +39,7 @@ class Path
         @cities[city_a].add_neighbor(@cities[city_b], distance.to_i)
         @cities[city_b].add_neighbor(@cities[city_a], distance.to_i)
 
-        @shortest += distance.to_i
+        @shortest_path += distance.to_i
       end
     end
   end
@@ -56,11 +56,17 @@ class Path
         ant.visit
       end
     end
+
+    #see if a shorter path was found
+    @ants.each do |ant|
+      shortest = ant.path_distance if ant.path_distance < @shortest_path
+    end
+
+    puts "shortest path was #{@shortest_path}"
     #end
   end
 
   def city_created?(city_id)
-    @cities.keys.each { |city| return true if city == city_id}
-    return false
+    @cities.keys.include?(city_id)
   end
 end
