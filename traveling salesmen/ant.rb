@@ -28,8 +28,7 @@ class Ant
 
       @current_city = city_to_visit
       @previous_cities << city_to_visit
-    else
-      puts 'done'
+
     end
   end
 

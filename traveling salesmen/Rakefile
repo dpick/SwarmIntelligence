@@ -1,0 +1,18 @@
+require 'path'
+
+task :default do
+  run('four.txt')
+end
+
+task :ten do
+  run('ten.txt')
+end
+
+task :thirty do
+  run('thirty.txt')
+end
+
+def run(file)
+  path = Path.new(file)
+  path.search
+end
