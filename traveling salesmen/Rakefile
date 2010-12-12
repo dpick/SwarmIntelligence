@@ -4,23 +4,27 @@ task :default do
   run('four.txt')
 end
 
+task :four do
+  run('four.txt', ENV['num_ants'].to_i)
+end
+
 task :ten do
-  run('ten.txt')
+  run('ten.txt', ENV['num_ants'].to_i)
 end
 
 task :thirty do
-  run('thirty.txt')
+  run('thirty.txt', ENV['num_ants'].to_i)
 end
 
 task :onehundred do
-  run('onehundred.txt')
+  run('onehundred.txt', ENV['num_ants'].to_i)
 end
 
 task :threehundred do
-  run('threehundred.txt')
+  run('threehundred.txt', ENV['num_ants'].to_i)
 end
 
-def run(file)
-  path = Path.new(file, 5)
+def run(file, num_ants = 2)
+  path = Path.new(file, num_ants)
   path.search
 end
