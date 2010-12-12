@@ -13,7 +13,7 @@ class City
     return false if city.city_id == @city_id
 
     @neighbors.each do |connection|
-      return true if connection.contains?(city)
+      return connection if connection.contains?(city)
     end
 
     return false

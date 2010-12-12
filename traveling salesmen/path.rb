@@ -48,7 +48,7 @@ class Path
     num_iterations = 10
 
     #0.upto(num_iterations).each do |iteration|
-    1.upto(@cities.size - 1).each do |i|
+    0.upto(@cities.size - 1).each do |i|
       @ants.each do |ant|
         ant.visit
       end
@@ -56,7 +56,10 @@ class Path
 
     #see if a shorter path was found
     @ants.each do |ant|
-      shortest = ant.path_distance if ant.path_distance < @shortest_path
+      distance = ant.path_distance
+      @shortest_path = distance if distance < @shortest_path
+      puts "Ant #{ant.id}'s path_distance was #{distance}"
+      puts ""
     end
 
     puts "shortest path was #{@shortest_path}"

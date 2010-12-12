@@ -6,13 +6,16 @@ class Ant
   def initialize(id, current_city, alpha, beta)
     @id = id
     @current_city = current_city
+    @starting_city = current_city
     @previous_cities = [current_city]
     @path = []
     @alpha, @beta = alpha, beta
   end
 
   def path_distance
+    print "#{@path.first.city_a.city_id} -> "
     @path.inject(0) do |sum, connection|
+      print "#{connection.city_b.city_id} -> "
       sum + connection.distance
     end
   end
@@ -29,7 +32,7 @@ class Ant
       @current_city = city_to_visit
       @previous_cities << city_to_visit
     else
-      puts "no available paths"
+      @path << @current_city.connected_to?(@starting_city)
     end
   end
 

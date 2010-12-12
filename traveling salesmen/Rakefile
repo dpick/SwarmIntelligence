@@ -12,6 +12,14 @@ task :thirty do
   run('thirty.txt')
 end
 
+task :onehundred do
+  run('onehundred.txt')
+end
+
+task :threehundred do
+  run('threehundred.txt')
+end
+
 def run(file)
   path = Path.new(file, 5)
   path.search
