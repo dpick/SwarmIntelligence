@@ -1,7 +1,7 @@
 require 'pp'
 
 class Ant
-  attr_accessor :cities, :current_city, :path, :id
+  attr_accessor :current_city, :path, :id
 
   def initialize(id, current_city, alpha, beta)
     @id = id
