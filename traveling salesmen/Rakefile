@@ -13,6 +13,6 @@ task :thirty do
 end
 
 def run(file)
-  path = Path.new(file)
+  path = Path.new(file, 5)
   path.search
 end

@@ -5,9 +5,9 @@ require 'ant'
 class Path
   attr_accessor :cities, :ants
 
-  def initialize(config_file)
+  def initialize(config_file, num_ants = 2)
     @cities = {}
-    @num_ants = 2
+    @num_ants = num_ants
     @shortest_path = 0
     @ants = []
     @alpha = 0
@@ -45,9 +45,6 @@ class Path
   end
 
   def search
-    @ants.each do |ant|
-      puts "Ant #{ant.id} is starting at city #{ant.current_city.city_id}"
-    end
     num_iterations = 10
 
     #0.upto(num_iterations).each do |iteration|
