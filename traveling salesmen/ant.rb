@@ -28,7 +28,8 @@ class Ant
 
       @current_city = city_to_visit
       @previous_cities << city_to_visit
-
+    else
+      puts "no available paths"
     end
   end
 
@@ -47,12 +48,13 @@ class Ant
   def transition_rule(connection)
     path = connection
 
-    temp = path.phermone_level ** @alpha * path.visibility ** @beta
+    numerator = path.phermone_level ** @alpha * path.visibility ** @beta
 
-    temp2 = @current_city.neighbors.inject(0) do |sum, neighbor|
+    denominator = @current_city.neighbors.inject(0) do |sum, neighbor|
       sum + neighbor.phermone_level ** @alpha * neighbor.visibility ** @beta
     end
 
-    return temp / temp2
+    return numerator / denominator if denominator > 0
+    return 0
   end
 end

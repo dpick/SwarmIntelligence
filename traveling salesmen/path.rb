@@ -10,8 +10,8 @@ class Path
     @num_ants = num_ants
     @shortest_path = 0
     @ants = []
-    @alpha = 0
-    @beta = 0
+    @alpha = 1
+    @beta = 5
 
     parse_file(config_file)
 
@@ -48,7 +48,7 @@ class Path
     num_iterations = 10
 
     #0.upto(num_iterations).each do |iteration|
-    0.upto(@cities.size - 1).each do |i|
+    1.upto(@cities.size - 1).each do |i|
       @ants.each do |ant|
         ant.visit
       end

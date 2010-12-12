@@ -17,6 +17,6 @@ class Connection
   end
 
   def visibility
-    1 / @distance
+    1.0 / @distance
   end
 end

@@ -5,7 +5,7 @@ describe Connection, "when first created" do
   before(:each) do
     @city_a = City.new(1, [], 5, 5)
     @city_b = City.new(2, [], 1, 2)
-    @connection = Connection.new(@city_a, @city_b)
+    @connection = Connection.new(@city_a, @city_b, 5)
   end
 
   it "should set the phermone level to 0 on creation" do
@@ -21,6 +21,10 @@ describe Connection, "when first created" do
 
   it "should calculate distance properly" do
     @connection.distance.should == 5 
+  end
+
+  it "visibility should be 1 / distance" do
+    @connection.visibility.should == 1 / 5
   end
 
   it "should contain city_a" do
