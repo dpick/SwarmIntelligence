@@ -8,8 +8,6 @@ describe City, "when first created" do
 
   it "should set the id and coordinates" do
     @city.id.should == 1
-    @city.x.should == 20 
-    @city.y.should == 10
   end
 
   it "should add a neighbor" do

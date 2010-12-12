@@ -37,7 +37,7 @@ class Ant
     max_value = 0
     max_neighbor = nil
 
-    @current_city.unvisited(@previous_cities).each do |neighbor|
+    @current_city.unvisited_neighbors(@previous_cities).each do |neighbor|
       temp = transition_rule(neighbor)
       max_value, max_neighbor = temp, neighbor if temp >= max_value
     end
