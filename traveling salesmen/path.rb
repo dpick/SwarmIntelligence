@@ -17,7 +17,7 @@ class Path
     @q = 100.0
     @edges = []
 
-    puts "Running Search with #{num_ants} ants and #{num_iterations} iterations"
+    puts "Running Search for #{config_file} with #{num_ants} ants and #{num_iterations} iterations"
 
     parse_file(config_file)
 
@@ -50,6 +50,8 @@ class Path
   end
 
   def search
+    start = Time.now
+    puts "Starting search at #{start}"
     0.upto(@num_iterations).each do |iteration|
       visit_cities
       shorter_path?
@@ -58,6 +60,10 @@ class Path
     end
 
     print_finished_info
+    finish = Time.now
+
+    puts "Finished search at #{finish}"
+    puts "Took #{finish - start} to run"
   end
 
   def reset_ants
