@@ -37,8 +37,9 @@ task :threehundred do
 end
 
 def run(file, num_iterations = 10, num_ants = 2)
-  num_ants = ENV['num_ants'].to_i unless ENV['num_ants'].nil?
-  num_iterations = ENV['num_iterations'].to_i unless ENV['num_iterations'].nil?
+  num_ants = ENV['ants'].to_i unless ENV['ants'].nil?
+  num_iterations = ENV['iterations'].to_i unless ENV['iterations'].nil?
+
   path = Path.new(file, num_iterations, num_ants)
   path.search
 end

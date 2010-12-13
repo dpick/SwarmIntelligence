@@ -23,10 +23,11 @@ class Ant
     end
   end
 
-  def reset_path
+  def reset_path(starting_city)
     @path = []
-    @previous_cities = [@starting_city]
-    @current_city = @starting_city
+    @previous_cities = [starting_city]
+    @current_city = starting_city
+    @starting_city = starting_city
   end
 
   def print_path

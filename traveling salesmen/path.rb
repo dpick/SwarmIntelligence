@@ -5,7 +5,7 @@ require 'ant'
 class Path
   attr_accessor :cities, :ants
 
-  def initialize(config_file, num_ants = 2, num_iterations = 10)
+  def initialize(config_file, num_iterations = 10, num_ants = 2)
     @cities = {}
     @num_iterations = num_iterations
     @num_ants = num_ants
@@ -16,6 +16,8 @@ class Path
     @beta = 5
     @q = 100.0
     @edges = []
+
+    puts "Running Search with #{num_ants} ants and #{num_iterations} iterations"
 
     parse_file(config_file)
 
@@ -69,7 +71,7 @@ class Path
     end
 
     @ants.each do |ant|
-      ant.reset_path
+      ant.reset_path(@cities.values[rand(@cities.size - 1)])
     end
   end
 
