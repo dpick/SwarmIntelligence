@@ -40,7 +40,7 @@ class Ant
     @path.inject(0) { |sum, conn| sum + conn.distance }
   end
 
-  def visit
+  def visit_next_city
     if connection = path_with_strongest_phermones
 
       @path << connection

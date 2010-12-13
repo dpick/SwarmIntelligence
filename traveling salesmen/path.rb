@@ -51,7 +51,7 @@ class Path
     0.upto(num_iterations).each do |iteration|
       0.upto(@cities.size - 1).each do |i|
         @ants.each do |ant|
-          ant.visit
+          ant.visit_next_city
         end
       end
 
