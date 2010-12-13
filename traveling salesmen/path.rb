@@ -54,9 +54,16 @@ class Path
       visit_cities
       shorter_path?
       update_phermones
+      reset_ants
     end
 
     print_finished_info
+  end
+
+  def reset_ants
+    @ants.each do |ant|
+      ant.reset_path(@cities.values[rand(@cities.size - 1)])
+    end
   end
 
   def update_phermones
@@ -68,10 +75,6 @@ class Path
       value += 5.0 * @shortest_path_distance if edge.is_part_of_shortest_path
       edge.delta_p = {}
       edge.phermone_level = value
-    end
-
-    @ants.each do |ant|
-      ant.reset_path(@cities.values[rand(@cities.size - 1)])
     end
   end
 
