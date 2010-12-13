@@ -65,7 +65,7 @@ class Ant
       return neighbor if rand < transition_rule(neighbor)
     end
 
-    return neighbors.last
+    return neighbors[rand(neighbors.size)]
   end
 
   def transition_rule(connection)
