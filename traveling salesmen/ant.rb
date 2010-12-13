@@ -62,7 +62,7 @@ class Ant
     neighbors = @current_city.unvisited_neighbors(@previous_cities)
 
     neighbors.each do |neighbor|
-      return neighbor if rand > transition_rule(neighbor)
+      return neighbor if rand < transition_rule(neighbor)
     end
 
     return neighbors.last
