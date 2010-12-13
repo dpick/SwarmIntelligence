@@ -19,8 +19,8 @@ class City
     return false
   end
 
-  def add_neighbor(city, distance)
-    conn = Connection.new(self, city, distance)
+  def add_neighbor(city, distance, q)
+    conn = Connection.new(self, city, distance, q)
     @neighbors << conn
     return conn
   end

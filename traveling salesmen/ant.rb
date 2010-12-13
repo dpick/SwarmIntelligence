@@ -51,6 +51,9 @@ class Ant
       @previous_cities << city_to_visit
     else
       @path << @current_city.connected_to?(@starting_city)
+      @path.each do |connection|
+        connection.add_ant_to_tour(@id, path_distance)
+      end
     end
   end
 
