@@ -5,8 +5,9 @@ require 'ant'
 class Path
   attr_accessor :cities, :ants
 
-  def initialize(config_file, num_ants = 2)
+  def initialize(config_file, num_ants = 2, num_iterations = 10)
     @cities = {}
+    @num_iterations = num_iterations
     @num_ants = num_ants
     @shortest_path_distance = 0
     @shortest_path = nil
@@ -48,9 +49,7 @@ class Path
   end
 
   def search
-    num_iterations = 20
-
-    0.upto(num_iterations).each do |iteration|
+    0.upto(@num_iterations).each do |iteration|
       visit_cities
       shorter_path?
       update_phermones
