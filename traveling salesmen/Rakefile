@@ -8,6 +8,10 @@ task :four do
   run('four.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
 end
 
+task :six do
+  run('six.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+end
+
 task :eight do
   run('eight.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
 end

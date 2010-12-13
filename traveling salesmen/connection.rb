@@ -29,7 +29,6 @@ class Connection
   end
 
   def add_ant_to_tour(ant_id, tour_length)
-    puts "Added ant #{ant_id} with tour_length #{tour_length}"
     @delta_p[ant_id] = @q / tour_length
   end
 end
