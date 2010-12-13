@@ -20,7 +20,9 @@ class City
   end
 
   def add_neighbor(city, distance)
-    @neighbors << Connection.new(self, city, distance)
+    conn = Connection.new(self, city, distance)
+    @neighbors << conn
+    return conn
   end
 
   def unvisited_neighbors(path)

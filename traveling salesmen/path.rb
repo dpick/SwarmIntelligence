@@ -13,6 +13,7 @@ class Path
     @ants = []
     @alpha = 1
     @beta = 5
+    @edges = []
 
     parse_file(config_file)
 
@@ -37,8 +38,8 @@ class Path
         @cities[city_a] = City.new(city_a, @alpha, @beta) unless city_created?(city_a)
         @cities[city_b] = City.new(city_b, @alpha, @beta) unless city_created?(city_b)
 
-        @cities[city_a].add_neighbor(@cities[city_b], distance.to_i)
-        @cities[city_b].add_neighbor(@cities[city_a], distance.to_i)
+        @edges << @cities[city_a].add_neighbor(@cities[city_b], distance.to_i)
+        @edges << @cities[city_b].add_neighbor(@cities[city_a], distance.to_i)
 
         @shortest_path_distance += distance.to_i
       end
@@ -49,22 +50,36 @@ class Path
     num_iterations = 10
 
     0.upto(num_iterations).each do |iteration|
-      0.upto(@cities.size - 1).each do |i|
-        @ants.each do |ant|
-          ant.visit_next_city
-        end
-      end
-
-      #see if a shorter path was found
-      @ants.each do |ant|
-        distance, path = ant.path_distance, ant.path
-        @shortest_path_distance, @shortest_path = distance, path if distance < @shortest_path_distance
-      end
-
-      @ants.each { |ant| ant.update_path_phermones(@shortest_path_distance); ant.reset_path }
+      visit_cities
+      shorter_path?
+      update_phermones
     end
 
     print_finished_info
+  end
+
+  def update_phermones
+    @ants.each do |ant|
+      ant.update_path_phermones(@shortest_path_distance)
+      ant.reset_path
+    end
+  end
+
+  def shorter_path?
+    @ants.each do |ant|
+      distance, path = ant.path_distance, ant.path
+      if distance < @shortest_path_distance
+        @shortest_path_distance, @shortest_path = distance, path
+      end
+    end
+  end
+
+  def visit_cities
+    0.upto(@cities.size - 1).each do |i|
+      @ants.each do |ant|
+        ant.visit_next_city
+      end
+    end
   end
 
   def print_finished_info
