@@ -59,15 +59,13 @@ class Ant
   end
 
   def path_with_strongest_phermones
-    max_value = 0
-    max_neighbor = nil
+    neighbors = @current_city.unvisited_neighbors(@previous_cities)
 
-    @current_city.unvisited_neighbors(@previous_cities).each do |neighbor|
-      temp = transition_rule(neighbor)
-      max_value, max_neighbor = temp, neighbor if temp >= max_value
+    neighbors.each do |neighbor|
+      return neighbor if rand > transition_rule(neighbor)
     end
 
-    return max_neighbor
+    return neighbors.last
   end
 
   def transition_rule(connection)
