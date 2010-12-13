@@ -5,38 +5,40 @@ task :default do
 end
 
 task :four do
-  run('four.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('four.txt')
 end
 
 task :six do
-  run('six.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('six.txt')
 end
 
 task :eight do
-  run('eight.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('eight.txt')
 end
 
 task :twelve do
-  run('twelve.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('twelve.txt')
 end
 
 task :ten do
-  run('ten.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('ten.txt')
 end
 
 task :thirty do
-  run('thirty.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('thirty.txt')
 end
 
 task :onehundred do
-  run('onehundred.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('onehundred.txt')
 end
 
 task :threehundred do
-  run('threehundred.txt', ENV['num_ants'].to_i, ENV['iterations'].to_i)
+  run('threehundred.txt')
 end
 
 def run(file, num_iterations = 10, num_ants = 2)
+  num_ants = ENV['num_ants'].to_i unless ENV['num_ants'].nil?
+  num_iterations = ENV['num_iterations'].to_i unless ENV['num_iterations'].nil?
   path = Path.new(file, num_iterations, num_ants)
   path.search
 end
