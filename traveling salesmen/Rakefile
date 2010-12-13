@@ -16,12 +16,12 @@ task :eight do
   run('test_files/eight.txt')
 end
 
-task :twelve do
-  run('test_files/twelve.txt')
-end
-
 task :ten do
   run('test_files/ten.txt')
+end
+
+task :twelve do
+  run('test_files/twelve.txt')
 end
 
 task :thirty do
