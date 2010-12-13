@@ -1,39 +1,39 @@
 require 'path'
 
 task :default do
-  run('four.txt')
+  run('test_files/four.txt')
 end
 
 task :four do
-  run('four.txt')
+  run('test_files/four.txt')
 end
 
 task :six do
-  run('six.txt')
+  run('test_files/six.txt')
 end
 
 task :eight do
-  run('eight.txt')
+  run('test_files/eight.txt')
 end
 
 task :twelve do
-  run('twelve.txt')
+  run('test_files/twelve.txt')
 end
 
 task :ten do
-  run('ten.txt')
+  run('test_files/ten.txt')
 end
 
 task :thirty do
-  run('thirty.txt')
+  run('test_files/thirty.txt')
 end
 
 task :onehundred do
-  run('onehundred.txt')
+  run('test_files/onehundred.txt')
 end
 
 task :threehundred do
-  run('threehundred.txt')
+  run('test_files/threehundred.txt')
 end
 
 def run(file, num_iterations = 10, num_ants = 2)
