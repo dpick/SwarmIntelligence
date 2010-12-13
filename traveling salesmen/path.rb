@@ -27,7 +27,6 @@ class Path
 
     1.upto(@num_ants).each do |i|
       ant = Ant.new(i, city_objects[rand(@cities.size)], @alpha, @beta, @q, 5.0, 0.5, @num_ants)
-      puts "New Ant #{i} at #{ant.current_city.city_id}"
       @ants <<  ant
     end
   end
