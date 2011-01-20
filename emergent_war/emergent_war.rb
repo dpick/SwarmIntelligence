@@ -6,5 +6,4 @@ class EmergentWar
     @field.generate_units("army 1")
     @field.generate_obstacles
   end
-
 end
