@@ -14,6 +14,8 @@ class EmergentWar
   end
 
   def move_units
-    @field.field_objects.first.fire_rule(@field)
+    @field.field_objects.each do |unit|
+      unit.fire_rule(@field)
+    end
   end
 end

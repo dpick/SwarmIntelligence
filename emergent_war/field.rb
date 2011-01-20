@@ -20,10 +20,10 @@ class Field
     end
   end
 
-  def generate_obstacles(num = 20)
+  def generate_obstacles(num = 10)
     0.upto(num).each do |obstacle_num|
       x, y = get_random_coordinates
-      @field_objects << Wall.new(x, y)
+      @field_objects << Wall.new(x, y, [])
     end
   end
 
