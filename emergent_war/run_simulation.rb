@@ -1,12 +1,26 @@
+require 'emergent_war'
+
 Shoes.app {
   stroke rgb(0.5, 0.5, 0.7)
-  fill rgb(1.0, 1.0, 0.9)
+  fill red
+
+  @emergent_war = EmergentWar.new(50, 50)
 
   blocks = []
 
-  0.upto(50).each do |x|
-    0.upto(50).each do |y|
-      blocks << rect(x * 10, y * 10, 10, 10)
+  #0.upto(50).each do |x|
+  #  0.upto(50).each do |y|
+  #    blocks << rect(x * 10, y * 10, 10, 10)
+  #  end
+  #end
+
+  @emergent_war.objects.each do |object|
+    if object.class == Unit
+      fill red
+      oval(object.x * 10, object.y * 10, 10)
+    else
+      fill black
+      rect(object.x * 10, object.y * 10, 10, 10)
     end
   end
 

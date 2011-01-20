@@ -15,7 +15,8 @@ class Field
   def generate_units(army_name, num = 10)
     0.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      @field_objects << Unit.new(army_name, x, y)
+      rules = [:move_left, :move_right, :move_up, :move_down]
+      @field_objects << Unit.new(army_name, x, y, 10, 100, 5, rules)
     end
   end
 
@@ -24,6 +25,16 @@ class Field
       x, y = get_random_coordinates
       @field_objects << Wall.new(x, y)
     end
+  end
+
+  def position_available(x, y)
+    return false if x < 0 || y < 0 || x > height - 1 || y > width - 1
+
+    @field_objects.each do |object|
+      return false if object.x == x && object.y == y
+    end
+
+    return true
   end
 
   def get_random_coordinates

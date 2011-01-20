@@ -44,4 +44,35 @@ describe "Field specs" do
       @field.available_coordinates[:y].should be_empty
     end
   end
+
+  describe "position_available tests" do
+    before(:each) do
+      @field = Field.new
+    end
+
+    it "should return true if a position is open" do
+      @field.position_available(0, 0).should be_true
+    end
+
+    it "should return false if a position is taken" do
+      @field.field_objects << Wall.new(0, 0)
+      @field.position_available(0, 0).should be_false
+    end
+
+    it "should return false if x is less than 0" do
+      @field.position_available(-1, 5).should be_false
+    end
+
+    it "should return false if y is less than 0" do
+      @field.position_available(5, -1).should be_false
+    end
+
+    it "should return false if x is greater than height" do
+      @field.position_available(55, 5).should be_false
+    end
+
+    it "should return false if y is greater than width" do
+      @field.position_available(55, -1).should be_false
+    end
+  end
 end
