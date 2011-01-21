@@ -1,7 +1,7 @@
-require 'object'
+require 'war_object'
 require 'production_system'
 
-class Unit < Object
+class Unit < WarObject
   attr_accessor :army_name, :damage, :health, :vision
 
   def initialize(army_name, x = 0, y = 0, damage = 5, health = 100, vision = 5, rules = [])
@@ -15,7 +15,10 @@ class Unit < Object
 
   def fire_rule(field)
     @rules.each do |rule|
-      return true if @production_system.send(rule, self, field)
+      if @production_system.send(rule, self, field)
+        puts "fired rule #{rule}"
+        return true
+      end
     end
   end
 
@@ -41,6 +44,6 @@ class Unit < Object
 
   def move(x, y)
     @x, @y = x, y
-    @shape.move(y * 10, x * 10)
+    @shape.move(y * 10, x * 10) unless @shape.nil?
   end
 end

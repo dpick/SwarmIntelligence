@@ -8,10 +8,10 @@ Shoes.app {
   @emergent_war.objects.each do |object|
     if object.class == Unit
       fill red
-      object.shape = oval(object.x * 10, object.y * 10, 10)
+      object.shape = oval(object.y * 10, object.x * 10, 10)
     else
       fill black
-      object.shape = rect(object.x * 10, object.y * 10, 10, 10)
+      object.shape = rect(object.y * 10, object.x * 10, 10, 10)
     end
   end
 

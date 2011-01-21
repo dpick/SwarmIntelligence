@@ -1,4 +1,5 @@
 require 'unit'
+require 'pp'
 require 'wall'
 
 class Field
@@ -8,8 +9,13 @@ class Field
     @height = height
     @width = width
     @field_objects = []
-    @available_coordinates = { :x => Array.new(height) { |i| i },
-                               :y => Array.new(width)  { |i| i } }
+    @available_coordinates = []
+
+    0.upto(height - 1).each do |row|
+      0.upto(width - 1).each do |col|
+        @available_coordinates << [row, col]
+      end
+    end
   end
 
   def generate_units(army_name, num = 10)
@@ -20,7 +26,7 @@ class Field
     end
   end
 
-  def generate_obstacles(num = 10)
+  def generate_obstacles(num = 30)
     0.upto(num).each do |obstacle_num|
       x, y = get_random_coordinates
       @field_objects << Wall.new(x, y, [])
@@ -30,6 +36,8 @@ class Field
   def position_available(x, y)
     return false if x < 0 || y < 0 || x > height - 1 || y > width - 1
 
+    pp @field_objects
+
     @field_objects.each do |object|
       return false if object.x == x && object.y == y
     end
@@ -38,12 +46,6 @@ class Field
   end
 
   def get_random_coordinates
-    x = @available_coordinates[:x][rand(@available_coordinates[:x].size - 1)]
-    y = @available_coordinates[:y][rand(@available_coordinates[:y].size - 1)]
-
-    @available_coordinates[:x].delete_if { |i| i == x }
-    @available_coordinates[:y].delete_if { |i| i == y }
-
-    return x, y
+    @available_coordinates.delete_at(rand(@available_coordinates.size))
   end
 end

@@ -55,8 +55,14 @@ describe "Field specs" do
     end
 
     it "should return false if a position is taken" do
-      @field.field_objects << Wall.new(0, 0)
-      @field.position_available(0, 0).should be_false
+      @field.field_objects << Wall.new(4, 4, [])
+      @field.field_objects << Wall.new(8, 4, [])
+      @field.field_objects << Wall.new(20, 4, [])
+      @field.field_objects << Wall.new(4, 9, [])
+      @field.position_available(4, 4).should be_false
+      @field.position_available(8, 4).should be_false
+      @field.position_available(20, 4).should be_false
+      @field.position_available(4, 9).should be_false
     end
 
     it "should return false if x is less than 0" do

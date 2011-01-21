@@ -1,6 +1,6 @@
-require 'object'
+require 'war_object'
 
-class Wall < Object
+class Wall < WarObject
   def fire_rule(field)
     return true
   end

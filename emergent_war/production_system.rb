@@ -33,13 +33,12 @@ class ProductionSystem
     conditional = lambda { |unit, field| field.position_available(newX, newY) }
     action = lambda { |unit, field| unit.send("move_#{direction}") }
 
-    return run_rule(conditional, action, unit, field)
+    run_rule(conditional, action, unit, field)
   end
 
   def run_rule(conditional, action, unit, field)
     if conditional.call(unit, field)
       action.call(unit, field)
-      puts "Fired rule #{action}"
       return true
     end
 
