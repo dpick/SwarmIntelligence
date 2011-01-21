@@ -19,7 +19,7 @@ class Field
   end
 
   def generate_units(army_name, num = 5)
-    0.upto(num).each do |unit_num|
+    1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = [:move_left, :move_right, :move_up, :move_down]
       @field_objects << Unit.new(army_name, x, y, 10, 100, 5, rules)
@@ -27,7 +27,7 @@ class Field
   end
 
   def generate_obstacles(num = 30)
-    0.upto(num).each do |obstacle_num|
+    1.upto(num).each do |obstacle_num|
       x, y = get_random_coordinates
       @field_objects << Wall.new(x, y, [])
     end
