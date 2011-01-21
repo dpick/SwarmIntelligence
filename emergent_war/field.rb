@@ -18,7 +18,7 @@ class Field
     end
   end
 
-  def generate_units(army_name, num = 10)
+  def generate_units(army_name, num = 5)
     0.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = [:move_left, :move_right, :move_up, :move_down]

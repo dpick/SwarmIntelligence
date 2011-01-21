@@ -1,0 +1,13 @@
+require 'emergent_war'
+task :default => [:run]
+
+task :run do
+  count = ENV['iterations'].to_i
+  count ||= 10
+
+  @em = EmergentWar.new(50, 50)
+
+  0.upto(count).each do |i|
+    @em.move_units
+  end
+end
