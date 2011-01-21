@@ -36,6 +36,8 @@ class ProductionSystem
     run_rule(conditional, action, unit, field)
   end
 
+  ############################################
+
   def run_rule(conditional, action, unit, field)
     if conditional.call(unit, field)
       action.call(unit, field)
