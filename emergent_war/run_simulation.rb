@@ -17,7 +17,7 @@ Shoes.app {
   end
 
   @animate = animate 24 do |i|
-    @animate.stop if i > 80
+    @animate.stop if i > 200
     @emergent_war.move_units
   end
 

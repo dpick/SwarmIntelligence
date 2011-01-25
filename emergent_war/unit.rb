@@ -16,7 +16,6 @@ class Unit < WarObject
   def fire_rule(field)
     @rules.each do |rule|
       if @production_system.send(rule, self, field)
-        puts "fired rule #{rule}"
         return true
       end
     end
@@ -26,24 +25,9 @@ class Unit < WarObject
     @health > damage ? @health -= damage : @health = 0
   end
 
-  def move_up
-    move(@x - 1, @y)
-  end
-
-  def move_down
-    move(@x + 1, @y)
-  end
-
-  def move_left
-    move(@x, @y - 1)
-  end
-
-  def move_right
-    move(@x, @y + 1)
-  end
-
   def move(x, y)
     @x, @y = x, y
+    #Shoes does things backwards :(
     @shape.move(y * 10, x * 10) unless @shape.nil?
   end
 end

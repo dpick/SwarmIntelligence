@@ -1,3 +1,5 @@
+require 'pp'
+
 class ProductionSystem
 
   ############################################
@@ -7,19 +9,19 @@ class ProductionSystem
   ############################################
 
   def move_left(unit, field)
-    move(unit, field, unit.x, unit.y - 1, "left")
+    move(unit, field, unit.x, unit.y - 1)
   end
 
   def move_right(unit, field)
-    move(unit, field, unit.x, unit.y + 1, "right")
+    move(unit, field, unit.x, unit.y + 1)
   end
 
   def move_up(unit, field)
-    move(unit, field, unit.x - 1, unit.y, "up")
+    move(unit, field, unit.x - 1, unit.y)
   end
 
   def move_down(unit, field)
-    move(unit, field, unit.x + 1, unit.y, "down")
+    move(unit, field, unit.x + 1, unit.y)
   end
 
 
@@ -29,9 +31,9 @@ class ProductionSystem
   #
   ############################################
 
-  def move(unit, field, newX, newY, direction)
+  def move(unit, field, newX, newY)
     conditional = lambda { |unit, field| field.position_available(newX, newY) }
-    action = lambda { |unit, field| unit.send("move_#{direction}") }
+    action = lambda { |unit, field| unit.move(newX, newY) }
 
     run_rule(conditional, action, unit, field)
   end
