@@ -7,4 +7,8 @@ class WarObject
     @shape = nil
     @rules = rules
   end
+
+  def reorder_rules
+    @rules = @rules.shuffle
+  end
 end

@@ -18,10 +18,10 @@ class Field
     end
   end
 
-  def generate_units(army_name, num = 5)
+  def generate_units(army_name, num = 10)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      rules = [:move_up, :move_left, :move_right, :move_down]
+      rules = [:move_up, :move_left, :move_right, :move_down].shuffle
       @field_objects << Unit.new(army_name, x, y, 10, 100, 5, rules)
     end
   end
