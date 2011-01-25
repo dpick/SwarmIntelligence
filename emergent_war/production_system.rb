@@ -1,5 +1,3 @@
-require 'pp'
-
 class ProductionSystem
 
   ############################################
@@ -7,6 +5,10 @@ class ProductionSystem
   # Rules
   #
   ############################################
+
+  def move_towards_teammate(unit, field)
+    
+  end
 
   def move_left(unit, field)
     move(unit, field, unit.x, unit.y - 1)

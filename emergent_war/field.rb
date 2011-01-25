@@ -1,6 +1,7 @@
 require 'unit'
 require 'pp'
 require 'wall'
+require 'yaml'
 
 class Field
   attr_accessor :height, :width, :field_objects, :available_coordinates
@@ -10,6 +11,7 @@ class Field
     @width = width
     @field_objects = []
     @available_coordinates = []
+    @config = YAML::load_file("config.yml")
 
     0.upto(height - 1).each do |row|
       0.upto(width - 1).each do |col|
@@ -21,7 +23,7 @@ class Field
   def generate_units(army_name, num = 10)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      rules = [:move_up, :move_left, :move_right, :move_down].shuffle
+      rules = @config["unit_rules"]
       @field_objects << Unit.new(army_name, x, y, 10, 100, 5, rules)
     end
   end
@@ -29,7 +31,7 @@ class Field
   def generate_obstacles(num = 30)
     1.upto(num).each do |obstacle_num|
       x, y = get_random_coordinates
-      @field_objects << Wall.new(x, y, [])
+      @field_objects << Wall.new(x, y, @config["wall_rules"])
     end
   end
 
@@ -45,5 +47,38 @@ class Field
 
   def get_random_coordinates
     @available_coordinates.delete_at(rand(@available_coordinates.size))
+  end
+
+  def visible_teammates(x, y, vision, team)
+    teammates_in_sight = []
+
+    @field_objects.each do |object|
+      if object.class == Unit && (object.x - x).abs <= vision && (object.y - y).abs <= vision && object.army_name == team
+        teammates_in_sight << object unless (object.x == x && object.y == y)
+      end
+    end
+
+    return teammates_in_sight
+  end
+
+  def closest_visible_teammate(visible_teammates, x, y)
+    min_distance = 100000
+    closest_teammate = nil
+
+    visible_teammates.each do |teammate|
+      if distance(x, y, teammate.x, teammate.y) < min_distance
+        closest_teammate = teammate
+        min_distance = distance(x, y, teammate.x, teammate.y)
+      end
+    end
+
+    return closest_teammate
+  end
+
+  def distance(x1, y1, x2, y2)
+    x = (x2 - x1) ** 2
+    y = (y2 - y1) ** 2
+
+    return Math.sqrt(x + y)
   end
 end
