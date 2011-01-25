@@ -1,0 +1,9 @@
+unit_rules:
+  - :move_towards_teammate
+  - :move_left
+  - :move_right
+  - :move_up
+  - :move_down
+
+wall_rules:
+  -
