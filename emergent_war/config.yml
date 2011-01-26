@@ -1,5 +1,6 @@
 unit_rules:
-  #- :move_towards_teammate
+  - :move_towards_teammate
+  - :attack_opponent
   - :move_left
   - :move_right
   - :move_up

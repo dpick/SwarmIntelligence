@@ -7,7 +7,19 @@ class ProductionSystem
   ############################################
 
   def move_towards_teammate(unit, field)
-    closest = field.closest_visible_teammate(field.visible_teammates)
+    #TODO Finish implementing this
+    #closest = field.closest_visible_teammate(field.visible_teammates)
+    conditional = lambda { |unit, field| return false }
+    action = lambda { |unit, field| return false }
+
+    run_rule(conditional, action, unit, field)
+  end
+
+  def attack_opponent(unit, field)
+    conditional = lambda { |unit, field| return false }
+    action = lambda { |unit, field| return false }
+
+    run_rule(conditional, action, unit, field)
   end
 
   def move_left(unit, field)
