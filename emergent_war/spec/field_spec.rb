@@ -73,37 +73,36 @@ describe "Field specs" do
 
   describe "visible_teammates tests" do
     it "should return [] when no units have been added" do
-      @field.visible_teammates(0, 0, 5, "team").should == []
+      @field.visible_teammates(Unit.new("team", 0, 0, 5, 100, 5)).should == []
     end
 
     it "should return [] if there is only 1 unit on the field" do
       @field.field_objects << Unit.new("army")
-      @field.visible_teammates(0, 0, 5, "army").should == []
+      @field.visible_teammates(Unit.new("team", 0, 0, 5, 100, 5)).should == []
     end
 
     it "should return [] if there are people from different armies" do
       @field.field_objects << Unit.new("army")
       @field.field_objects << Unit.new("army")
-      @field.visible_teammates(0, 0, 5, "army 2").should == []
+      @field.visible_teammates(Unit.new("army 2", 0, 0, 5, 100, 5)).should == []
     end
 
     it "should return 1 teammate" do
-      @field.field_objects << Unit.new("army")
       @field.field_objects << Unit.new("army", 1, 1)
-      @field.visible_teammates(0, 0, 5, "army").size.should == 1
+      @field.visible_teammates(Unit.new("army", 0, 0, 5, 100, 5)).size.should == 1
     end
 
     it "should return 1 teammate" do
-      @field.field_objects << Unit.new("army")
       @field.field_objects << Unit.new("army", 1, 1)
       @field.field_objects << Unit.new("army 2", 1, 2)
-      @field.visible_teammates(0, 0, 5, "army").size.should == 1
+      unit = Unit.new("army", 0, 0, 5, 100, 5)
+      @field.visible_teammates(unit).size.should == 1
     end
   end
 
   describe "closest_visible_teammate tests" do
     it "should return nil if no teammates are visible" do
-      @field.closest_visible_teammate([], 0, 0).should be_nil
+      @field.closest_visible_teammate([], Unit.new("army", 0, 0)).should be_nil
     end
 
     it "should return the closest teammate" do
@@ -112,8 +111,8 @@ describe "Field specs" do
       units << Unit.new("army", 0, 1)
       units << Unit.new("army", 5, 4)
 
-      @field.closest_visible_teammate(units, 3, 3).x.should == 5
-      @field.closest_visible_teammate(units, 3, 3).y.should == 4
+      @field.closest_visible_teammate(units, Unit.new("army", 3, 3)).x.should == 5
+      @field.closest_visible_teammate(units, Unit.new("army", 3, 3)).y.should == 4
     end
   end
 

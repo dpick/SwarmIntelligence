@@ -49,26 +49,26 @@ class Field
     @available_coordinates.delete_at(rand(@available_coordinates.size))
   end
 
-  def visible_teammates(x, y, vision, team)
+  def visible_teammates(unit)
     teammates_in_sight = []
 
     @field_objects.each do |object|
-      if object.class == Unit && (object.x - x).abs <= vision && (object.y - y).abs <= vision && object.army_name == team
-        teammates_in_sight << object unless (object.x == x && object.y == y)
+      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision && object.army_name == unit.army_name
+        teammates_in_sight << object unless (object.x == unit.x && object.y == unit.y)
       end
     end
 
     return teammates_in_sight
   end
 
-  def closest_visible_teammate(visible_teammates, x, y)
+  def closest_visible_teammate(visible_teammates, unit)
     min_distance = 100000
     closest_teammate = nil
 
     visible_teammates.each do |teammate|
-      if distance(x, y, teammate.x, teammate.y) < min_distance
+      if distance(unit.x, unit.y, teammate.x, teammate.y) < min_distance
         closest_teammate = teammate
-        min_distance = distance(x, y, teammate.x, teammate.y)
+        min_distance = distance(unit.x, unit.y, teammate.x, teammate.y)
       end
     end
 
