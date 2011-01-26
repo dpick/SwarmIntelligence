@@ -7,7 +7,7 @@ class ProductionSystem
   ############################################
 
   def move_towards_teammate(unit, field)
-    
+    closest = field.closest_visible_teammate(field.visible_teammates)
   end
 
   def move_left(unit, field)
