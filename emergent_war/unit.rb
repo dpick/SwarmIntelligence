@@ -14,6 +14,7 @@ class Unit < WarObject
   end
 
   def fire_rule(field)
+    @rules.shuffle!
     @rules.each do |rule|
       if @production_system.send(rule, self, field)
         return true

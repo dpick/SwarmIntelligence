@@ -16,6 +16,7 @@ class ProductionSystem
   end
 
   def attack_opponent(unit, field)
+    #TODO Finish implementing this
     conditional = lambda { |unit, field| return false }
     action = lambda { |unit, field| return false }
 
