@@ -24,7 +24,7 @@ class Field
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = @config["unit_rules"]
-      @field_objects << Unit.new(army_name, x, y, 10, 100, 3, rules)
+      @field_objects << Unit.new(army_name, x, y, rand(10), 100, rand(5), rules)
     end
   end
 

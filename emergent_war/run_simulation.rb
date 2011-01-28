@@ -1,6 +1,6 @@
 require 'emergent_war'
 
-Shoes.app {
+Shoes.app(:width => 500, :height => 500) {
   fill red
 
   @emergent_war = EmergentWar.new(50, 50)
