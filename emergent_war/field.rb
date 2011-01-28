@@ -24,7 +24,7 @@ class Field
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = @config["unit_rules"]
-      @field_objects << Unit.new(army_name, x, y, 10, 100, 5, rules)
+      @field_objects << Unit.new(army_name, x, y, 10, 100, 3, rules)
     end
   end
 
@@ -47,6 +47,18 @@ class Field
 
   def get_random_coordinates
     @available_coordinates.delete_at(rand(@available_coordinates.size))
+  end
+
+  def visible_enemies(unit)
+    enemies_in_sight = []
+
+    @field_objects.each do |object|
+      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision && object.army_name != unit.army_name
+        enemies_in_sight << object unless (object.x == unit.x && object.y == unit.y)
+      end
+    end
+
+    return enemies_in_sight
   end
 
   def visible_teammates(unit)

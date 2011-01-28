@@ -21,8 +21,14 @@ class Unit < WarObject
     end
   end
 
+  def destroy
+    @shape.remove unless @shape.nil?
+  end
+
   def take_hit(damage)
     @health > damage ? @health -= damage : @health = 0
+    destroy if @health == 0
+    return @health
   end
 
   def move(x, y)

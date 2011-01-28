@@ -1,9 +1,7 @@
 class ProductionSystem
 
   ############################################
-  #
   # Rules
-  #
   ############################################
 
   def move_towards_teammate(unit, field)
@@ -16,9 +14,13 @@ class ProductionSystem
   end
 
   def attack_opponent(unit, field)
-    #TODO Finish implementing this
-    conditional = lambda { |unit, field| return false }
-    action = lambda { |unit, field| return false }
+    conditional = lambda { |unit, field| not field.visible_enemies(unit).empty? }
+
+    action = lambda do |unit, field|
+      unit_to_attack = field.visible_enemies(unit).first
+      health = unit_to_attack.take_hit(unit.damage)
+      field.field_objects.delete(unit_to_attack) if health == 0
+    end
 
     run_rule(conditional, action, unit, field)
   end
@@ -39,11 +41,8 @@ class ProductionSystem
     move(unit, field, unit.x + 1, unit.y)
   end
 
-
   ############################################
-  #
   # Helper Methods
-  #
   ############################################
 
   def move(unit, field, newX, newY)
