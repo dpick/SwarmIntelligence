@@ -14,6 +14,9 @@ class Unit < WarObject
   end
 
   def fire_rule(field)
+    #@rules.delete(:attack_opponent)
+    #@rules.shuffle!
+    #@rules.insert(0, :attack_opponent)
     @rules.each do |rule|
       if @production_system.send(rule, self, field)
         return true

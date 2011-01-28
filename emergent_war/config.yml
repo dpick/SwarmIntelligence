@@ -2,9 +2,9 @@ unit_rules:
   - :move_towards_teammate
   - :attack_opponent
   - :move_left
-  - :move_up
   - :move_right
   - :move_down
+  - :move_up
 
 wall_rules:
   -

@@ -7,8 +7,8 @@ Shoes.app(:width => 500, :height => 500) {
 
   @emergent_war.objects.each do |object|
     if object.class == Unit
-      fill red if object.army_name == "army_1"
-      fill green if object.army_name == "army_2"
+      fill yellow if object.army_name == "army_1"
+      fill blue if object.army_name == "army_2"
       object.shape = oval(object.y * 10, object.x * 10, 10)
     else
       fill black
@@ -17,7 +17,7 @@ Shoes.app(:width => 500, :height => 500) {
   end
 
   @animate = animate 24 do |i|
-    @animate.stop if i > 200
+    @animate.stop if i > 500
     @emergent_war.move_units
   end
 

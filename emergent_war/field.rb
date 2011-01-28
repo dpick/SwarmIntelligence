@@ -20,15 +20,14 @@ class Field
     end
   end
 
-  def generate_units(army_name, num = 10)
+  def generate_units(army_name, num = 20)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      rules = @config["unit_rules"]
-      @field_objects << Unit.new(army_name, x, y, rand(10), 100, rand(5), rules)
+      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(2) + 1, @config["unit_rules"])
     end
   end
 
-  def generate_obstacles(num = 30)
+  def generate_obstacles(num = 40)
     1.upto(num).each do |obstacle_num|
       x, y = get_random_coordinates
       @field_objects << Wall.new(x, y, @config["wall_rules"])

@@ -5,9 +5,9 @@ class EmergentWar
 
   def initialize(height, width)
     @field = Field.new(height, width)
-    @field.generate_units("army_1")
-    @field.generate_units("army_2")
-    @field.generate_obstacles
+    @field.generate_units("army_1", 20)
+    @field.generate_units("army_2", 20)
+    @field.generate_obstacles(30)
   end
 
   def objects
