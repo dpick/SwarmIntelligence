@@ -7,7 +7,6 @@ task :run do
   count ||= 10
 
   @em = EmergentWar.new(50, 50)
-  @em.objects.first.move_rule_to_end
 
   0.upto(count).each do |i|
     @em.move_units

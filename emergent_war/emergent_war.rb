@@ -1,13 +1,16 @@
 require 'field'
+require 'yaml'
+require 'pp'
 
 class EmergentWar
   attr_accessor :field
 
   def initialize(height, width)
     @field = Field.new(height, width)
-    @field.generate_units("army_1", 20)
-    @field.generate_units("army_2", 20)
-    @field.generate_obstacles(40)
+    @config = YAML::load_file("config.yml")
+    @field.generate_units("army_1", @config["num_units"])
+    @field.generate_units("army_2", @config["num_units"])
+    @field.generate_obstacles(@config["num_walls"])
   end
 
   def objects

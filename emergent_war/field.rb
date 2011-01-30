@@ -4,7 +4,7 @@ require 'wall'
 require 'yaml'
 
 class Field
-  attr_accessor :height, :width, :field_objects, :available_coordinates
+  attr_accessor :height, :width, :field_objects, :available_coordinates, :config
 
   def initialize(height = 50, width = 50)
     @height = height
@@ -23,7 +23,8 @@ class Field
   def generate_units(army_name, num = 20)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(2) + 1, @config["unit_rules"].clone)
+      rules = Marshal::load(Marshal.dump(@config["unit_rules"]))
+      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(2) + 1, rules)
     end
   end
 

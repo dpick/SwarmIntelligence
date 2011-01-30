@@ -1,9 +1,14 @@
+num_units: 20
+num_walls: 20
+
 unit_rules:
-  - :attack_opponent
-  - :move_right
-  - :move_up
-  - :move_down
-  - :move_left
+  1:
+    - :attack_opponent
+  2:
+    - :move_right
+    - :move_up
+    - :move_down
+    - :move_left
 
 wall_rules:
   -

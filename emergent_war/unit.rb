@@ -1,4 +1,5 @@
 require 'war_object'
+require 'pp'
 require 'production_system'
 
 class Unit < WarObject
@@ -11,24 +12,25 @@ class Unit < WarObject
     @health = health
     @vision = vision
     @production_system = ProductionSystem.new
-    @previous_rule = @rules.first
+    @previous_rule = Hash.new
   end
 
   def fire_rule(field)
-    puts "firing rule"
-    self.move_rule_to_end if @previous_rule != @rules.first
+    @rules.each do |priority, rules|
+     move_rule_to_end(priority) if @previous_rule[priority] != rules.first
 
-    @rules.each do |rule|
-      if @production_system.send(rule, self, field)
-        @previous_rule = rule
-        return true
+      rules.each do |rule|
+        if @production_system.send(rule, self, field)
+          @previous_rule[priority] = rule
+          return true
+        end
       end
     end
   end
 
-  def move_rule_to_end
-    temp_rule = @rules.shift
-    @rules << temp_rule
+  def move_rule_to_end(priority)
+    temp_rule = @rules[priority].shift
+    @rules[priority] << temp_rule
   end
 
   def destroy
