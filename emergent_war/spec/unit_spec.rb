@@ -1,6 +1,10 @@
 require File.dirname(__FILE__) + "/../unit"
 
 describe "unit specs" do
+  before(:each) do
+    @unit = Unit.new("army")
+  end
+
   describe "initialization tests" do
     it "should create a unit with defaults" do
       unit = Unit.new("army")
@@ -38,5 +42,18 @@ describe "unit specs" do
       @unit.take_hit(105)
       @unit.health.should == 0
     end
+  end
+
+  describe "direction_towards test" do
+    it "should return -1, -1 for 1, 2 towards 4, 5" do
+      @unit.x, @unit.y = 1, 2
+      @unit.direction_towards(Unit.new("army", 4, 5)).should == [1, 1]
+    end
+
+    it "should return -1, 0 for 2,5 towards 4, 5" do
+      @unit.x, @unit.y = 2, 5
+      @unit.direction_towards(Unit.new("army", 4, 5)).should == [1, 0]
+    end
+
   end
 end

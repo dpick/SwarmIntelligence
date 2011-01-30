@@ -5,10 +5,15 @@ class ProductionSystem
   ############################################
 
   def move_towards_teammate(unit, field)
-    #TODO Finish implementing this
-    #closest = field.closest_visible_teammate(field.visible_teammates)
-    conditional = lambda { |unit, field| return false }
-    action = lambda { |unit, field| return false }
+    closest = field.closest_visible_teammate(field.visible_teammates(unit), unit)
+
+    conditional = lambda { |unit, field| not closest.nil? }
+
+    action = lambda do |unit, field|
+      newX, newY = unit.direction_towards(closest)
+      puts "moving towards (#{unit.x}, #{unit.y}) => (#{newX}, #{newY}) => (#{closest.x}, #{closest.y})"
+      move(unit, field, unit.x + newX, unit.y + newY)
+    end
 
     run_rule(conditional, action, unit, field)
   end
@@ -41,11 +46,11 @@ class ProductionSystem
   end
 
   def move_up(unit, field)
-    move(unit, field, unit.x - 1, unit.y)
+    move(unit, field, unit.x + 1, unit.y)
   end
 
   def move_down(unit, field)
-    move(unit, field, unit.x + 1, unit.y)
+    move(unit, field, unit.x - 1, unit.y)
   end
 
   ############################################
@@ -63,8 +68,7 @@ class ProductionSystem
 
   def run_rule(conditional, action, unit, field)
     if conditional.call(unit, field)
-      action.call(unit, field)
-      return true
+      return action.call(unit, field)
     end
 
     return false
