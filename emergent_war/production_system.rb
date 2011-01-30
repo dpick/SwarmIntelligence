@@ -25,6 +25,13 @@ class ProductionSystem
     run_rule(conditional, action, unit, field)
   end
 
+  def dont_move(unit, field)
+    conditional = lambda { |unit, field| field.visible_enemies(unit).empty? && field.visible_teammates(unit).empty?}
+    action = lambda { |unit, field| }
+
+    run_rule(conditional, action, unit, field)
+  end
+
   def move_left(unit, field)
     move(unit, field, unit.x, unit.y - 1)
   end

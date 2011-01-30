@@ -17,7 +17,7 @@ Shoes.app(:width => 500, :height => 500) {
   end
 
   @animate = animate 24 do |i|
-    @animate.stop if i > 500
+    #@animate.stop if i > 500
     @emergent_war.move_units
   end
 

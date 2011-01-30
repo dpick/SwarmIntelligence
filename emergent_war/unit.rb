@@ -11,14 +11,15 @@ class Unit < WarObject
     @health = health
     @vision = vision
     @production_system = ProductionSystem.new
+    @previous_rule = nil
   end
 
   def fire_rule(field)
-    #@rules.delete(:attack_opponent)
-    #@rules.shuffle!
-    #@rules.insert(0, :attack_opponent)
+    self.move_rule_to_end if @previous_rule != @rules.first
+
     @rules.each do |rule|
       if @production_system.send(rule, self, field)
+        @previous_rule = rule
         return true
       end
     end
