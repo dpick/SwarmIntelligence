@@ -23,7 +23,7 @@ class Field
   def generate_units(army_name, num = 20)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
-      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(2) + 1, @config["unit_rules"])
+      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(2) + 1, @config["unit_rules"].clone)
     end
   end
 

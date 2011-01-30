@@ -1,9 +1,9 @@
 unit_rules:
   - :attack_opponent
   - :move_right
-  - :move_left
-  - :move_down
   - :move_up
+  - :move_down
+  - :move_left
 
 wall_rules:
   -

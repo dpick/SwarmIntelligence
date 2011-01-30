@@ -11,10 +11,11 @@ class Unit < WarObject
     @health = health
     @vision = vision
     @production_system = ProductionSystem.new
-    @previous_rule = nil
+    @previous_rule = @rules.first
   end
 
   def fire_rule(field)
+    puts "firing rule"
     self.move_rule_to_end if @previous_rule != @rules.first
 
     @rules.each do |rule|
@@ -23,6 +24,11 @@ class Unit < WarObject
         return true
       end
     end
+  end
+
+  def move_rule_to_end
+    temp_rule = @rules.shift
+    @rules << temp_rule
   end
 
   def destroy

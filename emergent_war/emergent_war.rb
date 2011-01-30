@@ -7,7 +7,7 @@ class EmergentWar
     @field = Field.new(height, width)
     @field.generate_units("army_1", 20)
     @field.generate_units("army_2", 20)
-    @field.generate_obstacles(30)
+    @field.generate_obstacles(40)
   end
 
   def objects
