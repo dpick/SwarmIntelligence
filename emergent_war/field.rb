@@ -39,9 +39,7 @@ class Field
     return false if x < 0 || y < 0 || x > height - 1 || y > width - 1
 
     @field_objects.each do |object|
-      if object.x == x && object.y == y
-        return false
-      end
+      return false if object.x == x && object.y == y
     end
 
     return true
@@ -72,7 +70,7 @@ class Field
   end
 
   def closest_visible_teammate(visible_teammates, unit)
-    min_distance = 100000
+    min_distance = height * width
     closest_teammate = nil
 
     visible_teammates.each do |teammate|

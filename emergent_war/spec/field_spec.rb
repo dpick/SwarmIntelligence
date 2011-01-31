@@ -23,7 +23,7 @@ describe "Field specs" do
 
   describe "unit generation tests" do
     it "should genereate 10 field_objects with the name army" do
-      @field.generate_units("army", 10)
+      @field.generate_units("army", 10, [])
       @field.field_objects.first.army_name.should == "army"
     end
   end
