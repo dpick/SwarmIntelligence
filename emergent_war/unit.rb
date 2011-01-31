@@ -13,6 +13,7 @@ class Unit < WarObject
     @vision = vision
     @production_system = ProductionSystem.new
     @previous_rule = Hash.new
+    @rules[3].shuffle! unless @rules[3].nil?
   end
 
   def fire_rule(field)
@@ -21,6 +22,7 @@ class Unit < WarObject
         if @production_system.send(rule, self, field)
           @previous_rule[priority] = rule
           move_rule_to_end(priority) if @previous_rule[priority] != rules.first
+
           return true
         end
       end

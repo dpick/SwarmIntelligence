@@ -7,7 +7,7 @@ class ProductionSystem
   def move_towards_teammate(unit, field)
     closest = field.closest_visible_teammate(field.visible_teammates(unit), unit)
 
-    conditional = lambda { |unit, field| not closest.nil? }
+    conditional = lambda { |unit, field| (not closest.nil?) && rand < 0.9 }
 
     action = lambda do |unit, field|
       newX, newY = unit.direction_towards(closest)
