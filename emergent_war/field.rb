@@ -24,7 +24,7 @@ class Field
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = Marshal::load(Marshal.dump(rules))
-      @field_objects << Unit.new(army_name, x, y, rand(5) + 1, 100, rand(5) + 1, rules)
+      @field_objects << Unit.new(army_name, x, y, rand(5) + 1, 100, @config['vision'], rules)
     end
   end
 

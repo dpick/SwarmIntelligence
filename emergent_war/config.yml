@@ -1,10 +1,11 @@
-num_units: 30
-num_walls: 10
+num_units: 40
+num_walls: 0
+vision: 10
 
 mark_rules:
   1:
     - :attack_opponent
-  2:
+  4:
     - :move_down
     - :move_up
     - :move_left
@@ -14,8 +15,10 @@ david_rules:
   1:
     - :attack_opponent
   2:
-    - :move_towards_teammate
+    - :move_towards_enemy
   3:
+    - :move_towards_teammate
+  4:
     - :move_down
     - :move_up
     - :move_left

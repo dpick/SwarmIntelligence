@@ -13,7 +13,7 @@ class Unit < WarObject
     @vision = vision
     @production_system = ProductionSystem.new
     @previous_rule = Hash.new
-    @rules[3].shuffle! unless @rules[3].nil?
+    @rules[4].shuffle! unless @rules[4].nil?
   end
 
   def fire_rule(field)
