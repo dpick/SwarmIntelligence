@@ -1,3 +1,5 @@
+require 'pp'
+
 class ProductionSystem
 
   ############################################
@@ -5,12 +7,12 @@ class ProductionSystem
   ############################################
 
   def move_towards_teammate(unit, field)
-    closest = field.closest_visible_teammate(field.visible_teammates(unit), unit)
+    aveX, aveY = ave_position(field.visible_teammates(unit))
 
-    conditional = lambda { |unit, field| (not closest.nil?) && rand < 0.9 }
+    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.9 }
 
     action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(closest)
+      newX, newY = unit.direction_towards(aveX, aveY)
       move(unit, field, unit.x + newX, unit.y + newY)
     end
 
@@ -54,6 +56,17 @@ class ProductionSystem
     action = lambda { |unit, field| unit.move(newX, newY) }
 
     run_rule(conditional, action, unit, field)
+  end
+
+  def ave_position(unit_list)
+    return nil, nil if unit_list.empty?
+
+    ave_pos = unit_list.inject([0, 0]) do |pos, unit|
+      [ pos[0] += unit.x,
+        pos[1] += unit.y ]
+    end
+
+    ave_pos.map! { |coord| coord / unit_list.size }
   end
 
   ############################################

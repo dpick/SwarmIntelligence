@@ -29,10 +29,12 @@ class Unit < WarObject
     end
   end
 
-  def direction_towards(unit)
-    x, y = unit.x - @x, unit.y - @y
+  def direction_towards(toward_x, toward_y)
+    puts "(#{@x}, #{@y}) => (#{toward_x}, #{toward_y})"
+    x, y = toward_x - @x, toward_y - @y
 
     max = [x, y].map { |i| i.abs }.max
+    max += 1 if max == 0
     x, y = x / max, y / max
 
     return x, y
