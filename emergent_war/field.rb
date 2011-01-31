@@ -52,27 +52,23 @@ class Field
   end
 
   def visible_enemies(unit)
-    enemies_in_sight = []
-
-    @field_objects.each do |object|
-      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision && object.army_name != unit.army_name
-        enemies_in_sight << object unless (object.x == unit.x && object.y == unit.y)
-      end
-    end
-
-    return enemies_in_sight
+    visible_units(unit).delete_if { |i| unit.army_name == i.army_name }
   end
 
   def visible_teammates(unit)
-    teammates_in_sight = []
+    visible_units(unit).delete_if { |i| unit.army_name != i.army_name }
+  end
+
+  def visible_units(unit)
+    units_in_sight = []
 
     @field_objects.each do |object|
-      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision && object.army_name == unit.army_name
-        teammates_in_sight << object unless (object.x == unit.x && object.y == unit.y)
+      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision
+        units_in_sight << object unless (object.x == unit.x && object.y == unit.y)
       end
     end
 
-    return teammates_in_sight
+    return units_in_sight
   end
 
   def closest_visible_teammate(visible_teammates, unit)
