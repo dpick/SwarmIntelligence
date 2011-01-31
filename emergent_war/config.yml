@@ -1,5 +1,5 @@
 num_units: 20
-num_walls: 20
+num_walls: 30
 
 mark_rules:
   1:
@@ -15,9 +15,10 @@ david_rules:
     - :attack_opponent
   2:
     - :move_towards_teammate
+  3:
     - :move_right
-    - :move_left
     - :move_up
+    - :move_left
     - :move_down
 
 wall_rules:

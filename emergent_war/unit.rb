@@ -53,7 +53,6 @@ class Unit < WarObject
 
   def move(x, y)
     @x, @y = x, y
-    #Shoes does things backwards :(
     @shape.move(y * 10, x * 10) unless @shape.nil?
   end
 end

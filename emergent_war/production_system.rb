@@ -11,7 +11,6 @@ class ProductionSystem
 
     action = lambda do |unit, field|
       newX, newY = unit.direction_towards(closest)
-      puts "moving towards (#{unit.x}, #{unit.y}) => (#{newX}, #{newY}) => (#{closest.x}, #{closest.y})"
       move(unit, field, unit.x + newX, unit.y + newY)
     end
 
@@ -30,27 +29,20 @@ class ProductionSystem
     run_rule(conditional, action, unit, field)
   end
 
-  def dont_move(unit, field)
-    conditional = lambda { |unit, field| field.visible_enemies(unit).empty? && field.visible_teammates(unit).empty?}
-    action = lambda { |unit, field| }
-
-    run_rule(conditional, action, unit, field)
-  end
-
   def move_left(unit, field)
-    move(unit, field, unit.x, unit.y - 1)
+    move(unit, field, unit.x - 1, unit.y)
   end
 
   def move_right(unit, field)
-    move(unit, field, unit.x, unit.y + 1)
-  end
-
-  def move_up(unit, field)
     move(unit, field, unit.x + 1, unit.y)
   end
 
+  def move_up(unit, field)
+    move(unit, field, unit.x, unit.y + 1)
+  end
+
   def move_down(unit, field)
-    move(unit, field, unit.x - 1, unit.y)
+    move(unit, field, unit.x, unit.y - 1)
   end
 
   ############################################

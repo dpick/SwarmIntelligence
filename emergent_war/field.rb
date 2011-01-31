@@ -24,7 +24,7 @@ class Field
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = Marshal::load(Marshal.dump(rules))
-      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(5) + 1, rules)
+      @field_objects << Unit.new(army_name, x, y, rand(9) + 1, 100, rand(8) + 1, rules)
     end
   end
 
@@ -39,7 +39,9 @@ class Field
     return false if x < 0 || y < 0 || x > height - 1 || y > width - 1
 
     @field_objects.each do |object|
-      return false if object.x == x && object.y == y
+      if object.x == x && object.y == y
+        return false
+      end
     end
 
     return true

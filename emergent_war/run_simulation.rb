@@ -1,4 +1,5 @@
 require 'emergent_war'
+require 'pp'
 
 Shoes.app(:width => 500, :height => 500) {
   fill red
