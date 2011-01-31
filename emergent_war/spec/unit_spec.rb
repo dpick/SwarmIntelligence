@@ -47,12 +47,12 @@ describe "unit specs" do
   describe "direction_towards test" do
     it "should return -1, -1 for 1, 2 towards 4, 5" do
       @unit.x, @unit.y = 1, 2
-      @unit.direction_towards(Unit.new("army", 4, 5)).should == [1, 1]
+      @unit.direction_towards(4, 5).should == [1, 1]
     end
 
     it "should return -1, 0 for 2,5 towards 4, 5" do
       @unit.x, @unit.y = 2, 5
-      @unit.direction_towards(Unit.new("army", 4, 5)).should == [1, 0]
+      @unit.direction_towards(4, 5).should == [1, 0]
     end
 
   end

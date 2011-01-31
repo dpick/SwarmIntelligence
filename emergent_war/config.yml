@@ -1,6 +1,6 @@
 num_units: 40
 num_walls: 0
-vision: 10
+vision: 5
 
 mark_rules:
   1:

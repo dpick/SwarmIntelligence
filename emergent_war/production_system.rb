@@ -6,32 +6,6 @@ class ProductionSystem
   # Rules
   ############################################
 
-  def move_towards_teammate(unit, field)
-    aveX, aveY = ave_position(field.visible_teammates(unit))
-
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.95 }
-
-    action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(aveX, aveY)
-      move(unit, field, unit.x + newX, unit.y + newY)
-    end
-
-    run_rule(conditional, action, unit, field)
-  end
-
-  def move_towards_enemy(unit, field)
-    aveX, aveY = ave_position(field.visible_enemies(unit))
-
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.9 }
-
-    action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(aveX, aveY)
-      move(unit, field, unit.x + newX, unit.y + newY)
-    end
-
-    run_rule(conditional, action, unit, field)
-  end
-
   def attack_opponent(unit, field)
     conditional = lambda { |unit, field| not field.visible_enemies(unit).empty? }
 
@@ -42,6 +16,14 @@ class ProductionSystem
     end
 
     run_rule(conditional, action, unit, field)
+  end
+
+  def move_towards_teammate(unit, field)
+    move_towards_unit(unit, field, field.visible_teammates(unit))
+  end
+
+  def move_towards_enemy(unit, field)
+    move_towards_unit(unit, field, field.visible_enemies(unit))
   end
 
   def move_left(unit, field)
@@ -80,6 +62,19 @@ class ProductionSystem
     end
 
     ave_pos.map! { |coord| coord / unit_list.size }
+  end
+
+  def move_towards_unit(unit, field, visible_units)
+    aveX, aveY = ave_position(visible_units)
+
+    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.9 }
+
+    action = lambda do |unit, field|
+      newX, newY = unit.direction_towards(aveX, aveY)
+      move(unit, field, unit.x + newX, unit.y + newY)
+    end
+
+    run_rule(conditional, action, unit, field)
   end
 
   ############################################
