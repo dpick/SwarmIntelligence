@@ -13,15 +13,16 @@ class Unit < WarObject
     @vision = vision
     @production_system = ProductionSystem.new
     @previous_rule = Hash.new
-    @rules[4].shuffle! unless @rules[4].nil?
+    @rules[8].shuffle! unless @rules[8].nil?
   end
 
   def fire_rule(field)
-    @rules.each do |priority, rules|
+    @rules.sort.each do |priority, rules|
       rules.each do |rule|
         if @production_system.send(rule, self, field)
           @previous_rule[priority] = rule
-          move_rule_to_end(priority) if @previous_rule[priority] != rules.first
+          move_rule_to_end(priority) if @previous_rule[priority] != rules.first && priority != 8
+          rules.shuffle! if @previous_rule[priority] != rules.first && priority == 8
 
           return true
         end

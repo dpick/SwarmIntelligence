@@ -20,7 +20,7 @@ class Field
     end
   end
 
-  def generate_units(army_name, num = 20, rules = @config["unit_rules"])
+  def generate_units(army_name, num, rules)
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = Marshal::load(Marshal.dump(rules))

@@ -1,10 +1,4 @@
-require 'pp'
-
 class ProductionSystem
-
-  ############################################
-  # Rules
-  ############################################
 
   def attack_opponent(unit, field)
     conditional = lambda { |unit, field| not field.visible_enemies(unit).empty? }
@@ -14,6 +8,17 @@ class ProductionSystem
       health = unit_to_attack.take_hit(unit.damage)
       field.field_objects.delete(unit_to_attack) if health == 0
     end
+
+    run_rule(conditional, action, unit, field)
+  end
+
+  def stop_inside_swarm(unit, field)
+    aveX, aveY = ave_position(field.visible_teammates(unit))
+
+    return false if aveX.nil? || aveY.nil?
+
+    conditional = lambda { |unit, field| field.distance(unit.x, unit.y, aveX, aveY) < unit.vision }
+    action = lambda { |unit, field| nil }
 
     run_rule(conditional, action, unit, field)
   end
@@ -48,7 +53,7 @@ class ProductionSystem
 
   def move(unit, field, newX, newY)
     conditional = lambda { |unit, field| field.position_available(newX, newY) }
-    action = lambda { |unit, field| unit.move(newX, newY) }
+    action = lambda { |unit, field| unit.move(newX, newY); return true }
 
     run_rule(conditional, action, unit, field)
   end
@@ -57,8 +62,7 @@ class ProductionSystem
     return nil, nil if unit_list.empty?
 
     ave_pos = unit_list.inject([0, 0]) do |pos, unit|
-      [ pos[0] += unit.x,
-        pos[1] += unit.y ]
+      [ pos[0] += unit.x, pos[1] += unit.y ]
     end
 
     ave_pos.map! { |coord| coord / unit_list.size }
@@ -67,7 +71,7 @@ class ProductionSystem
   def move_towards_unit(unit, field, visible_units)
     aveX, aveY = ave_position(visible_units)
 
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.9 }
+    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.98 }
 
     action = lambda do |unit, field|
       newX, newY = unit.direction_towards(aveX, aveY)
