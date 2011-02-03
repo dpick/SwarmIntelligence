@@ -58,29 +58,18 @@ class Field
   end
 
   def visible_units(unit)
-    units_in_sight = []
-
-    @field_objects.each do |object|
-      if object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision
-        units_in_sight << object unless (object.x == unit.x && object.y == unit.y)
-      end
+    @field_objects.select do |object|
+      temp = object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision
+      temp && (not object.x == unit.x && object.y == unit.y)
     end
-
-    return units_in_sight
   end
 
   def closest_visible_teammate(visible_teammates, unit)
-    min_distance = height * width
-    closest_teammate = nil
+    return nil if visible_teammates.empty?
 
-    visible_teammates.each do |teammate|
-      if distance(unit.x, unit.y, teammate.x, teammate.y) < min_distance
-        closest_teammate = teammate
-        min_distance = distance(unit.x, unit.y, teammate.x, teammate.y)
-      end
-    end
+    distances = visible_teammates.map { |teammate| [distance(unit.x, unit.y, teammate.x, teammate.y), teammate] }
 
-    return closest_teammate
+    return distances.min { |a, b| a.first <=> b.first }.last
   end
 
   def distance(x1, y1, x2, y2)
