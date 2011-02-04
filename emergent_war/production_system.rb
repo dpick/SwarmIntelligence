@@ -71,7 +71,7 @@ class ProductionSystem
   def move_towards_unit(unit, field, visible_units)
     aveX, aveY = ave_position(visible_units)
 
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.98 }
+    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.95 }
 
     action = lambda do |unit, field|
       newX, newY = unit.direction_towards(aveX, aveY)
