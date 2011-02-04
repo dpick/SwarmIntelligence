@@ -1,6 +1,6 @@
-num_units: 30
-num_walls: 20
-vision: 3
+num_units: 40
+num_walls: 0
+vision: 5
 
 mark_rules:
   1:
