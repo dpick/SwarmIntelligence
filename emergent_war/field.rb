@@ -2,9 +2,12 @@ require 'unit'
 require 'pp'
 require 'wall'
 require 'yaml'
+require 'unit_filter_methods'
 
 class Field
   attr_accessor :height, :width, :field_objects, :available_coordinates, :config
+
+  include UnitMethods
 
   def initialize(height = 50, width = 50)
     @height = height
@@ -45,32 +48,7 @@ class Field
     return true
   end
 
-  def get_random_coordinates
-    @available_coordinates.delete_at(rand(@available_coordinates.size))
-  end
-
-  def visible_enemies(unit)
-    visible_units(unit).delete_if { |i| unit.army_name == i.army_name }
-  end
-
-  def visible_teammates(unit)
-    visible_units(unit).delete_if { |i| unit.army_name != i.army_name }
-  end
-
-  def visible_units(unit)
-    @field_objects.select do |object|
-      temp = object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision
-      temp && (not object.x == unit.x && object.y == unit.y)
-    end
-  end
-
-  def closest_visible_teammate(visible_teammates, unit)
-    return nil if visible_teammates.empty?
-
-    distances = visible_teammates.map { |teammate| [distance(unit.x, unit.y, teammate.x, teammate.y), teammate] }
-
-    return distances.min { |a, b| a.first <=> b.first }.last
-  end
+  
 
   def distance(x1, y1, x2, y2)
     x = (x2 - x1) ** 2

@@ -1,5 +1,5 @@
 num_units: 30
-num_walls: 20
+num_walls: 0
 vision: 3
 
 mark_rules:

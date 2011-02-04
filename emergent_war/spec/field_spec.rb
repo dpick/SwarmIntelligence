@@ -125,4 +125,39 @@ describe "Field specs" do
       @field.distance(0, 0, 0, 0).should == 0
     end
   end
+
+  describe "bounding_points tests" do
+    it "should return the min points with 2 units" do
+      units = Array.new
+      units << Unit.new("army", 0, 0)
+      units << Unit.new("army", 1, 1)
+
+      @field.bounding_points(units)[:min_x].should == 0
+      @field.bounding_points(units)[:min_y].should == 0
+      @field.bounding_points(units)[:max_x].should == 1
+      @field.bounding_points(units)[:max_y].should == 1
+    end
+  end
+
+  describe "inside_bounding_box? tests" do
+    before(:each) do
+      @units = Array.new
+      @units << Unit.new("army", 0, 0)
+      @units << Unit.new("army", 2, 2)
+    end
+
+    [
+      [[1, 1] , true],
+      [[1, 2] , true],
+      [[0, 0] , true],
+      [[-1, 0], false],
+      [[3, 1] , false]
+
+    ].each do |input, output|
+      it "should return #{output} for #{input}" do
+        bounding_points = @field.bounding_points(@units)
+        @field.inside_bounding_box?(bounding_points, input.first, input.last).should == output
+      end
+    end
+  end
 end

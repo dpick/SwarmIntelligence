@@ -12,17 +12,6 @@ class ProductionSystem
     run_rule(conditional, action, unit, field)
   end
 
-  def stop_inside_swarm(unit, field)
-    aveX, aveY = ave_position(field.visible_teammates(unit))
-
-    return false if aveX.nil? || aveY.nil?
-
-    conditional = lambda { |unit, field| field.distance(unit.x, unit.y, aveX, aveY) < unit.vision }
-    action = lambda { |unit, field| nil }
-
-    run_rule(conditional, action, unit, field)
-  end
-
   def move_towards_teammate(unit, field)
     move_towards_unit(unit, field, field.visible_teammates(unit))
   end
@@ -69,12 +58,12 @@ class ProductionSystem
   end
 
   def move_towards_unit(unit, field, visible_units)
-    aveX, aveY = ave_position(visible_units)
+    bounding_points = field.bounding_points(visible_units)
+    newX, newY = field.move_towards_bounding_box(bounding_points, unit.x, unit.y)
 
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.98 }
+    conditional = lambda { |unit, field| rand < 0.98 && !newX.nil? && !newY.nil? }
 
     action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(aveX, aveY)
       move(unit, field, unit.x + newX, unit.y + newY)
     end
 
