@@ -38,7 +38,8 @@ module UnitMethods
   end
 
   def move_towards_bounding_box(bounding_points, x, y)
-    return 0, 0 if inside_bounding_box?(bounding_points, x, y) || bounding_points.values.include?(nil)
+    return nil, nil if bounding_points.values.include?(nil)
+    return 0, 0 if inside_bounding_box?(bounding_points, x, y)
 
     return 1, 0 if x < bounding_points[:min_x] && y_in_bounding_box?(bounding_points, y)
     return -1, 0 if x > bounding_points[:max_x] && y_in_bounding_box?(bounding_points, y)

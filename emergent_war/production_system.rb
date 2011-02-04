@@ -65,6 +65,7 @@ class ProductionSystem
 
     action = lambda do |unit, field|
       move(unit, field, unit.x + newX, unit.y + newY)
+      return true
     end
 
     run_rule(conditional, action, unit, field)
