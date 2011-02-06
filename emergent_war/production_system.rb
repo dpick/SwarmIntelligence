@@ -1,10 +1,10 @@
 class ProductionSystem
 
   def attack_opponent(unit, field)
-    conditional = lambda { |unit, field| not field.visible_enemies(unit).empty? }
+    conditional = lambda { |unit, field| not field.attackable_units(unit).empty? }
 
     action = lambda do |unit, field|
-      unit_to_attack = field.visible_enemies(unit).first
+      unit_to_attack = field.attackable_units(unit).first
       health = unit_to_attack.take_hit(unit.damage)
       field.field_objects.delete(unit_to_attack) if health == 0
     end

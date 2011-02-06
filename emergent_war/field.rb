@@ -24,7 +24,8 @@ class Field
     1.upto(num).each do |unit_num|
       x, y = get_random_coordinates
       rules = Marshal::load(Marshal.dump(rules))
-      @field_objects << Unit.new(army_name, x, y, @config['damage'], 100, @config['vision'], rules)
+      @field_objects << Unit.new(army_name, x, y, @config['damage'], 150, @config['vision'], rules, @config['attack_distance']) if army_name == "mark"
+      @field_objects << Unit.new(army_name, x, y, @config['damage'], 100, @config['vision'], rules, @config['attack_distance']) if army_name == "david"
     end
   end
 
@@ -61,6 +62,14 @@ class Field
     @field_objects.select do |object|
       temp = object.class == Unit && (object.x - unit.x).abs <= unit.vision && (object.y - unit.y).abs <= unit.vision
       temp && (not object.x == unit.x && object.y == unit.y)
+    end
+  end
+
+  def attackable_units(unit)
+    @field_objects.select do |object|
+      temp = object.class == Unit && (object.x - unit.x).abs <= unit.attack_distance && (object.y - unit.y).abs <= unit.attack_distance
+      temp = temp && (not object.x == unit.x && object.y == unit.y)
+      temp && object.army_name != unit.army_name
     end
   end
 

@@ -3,9 +3,9 @@ require 'pp'
 require 'production_system'
 
 class Unit < WarObject
-  attr_accessor :army_name, :damage, :health, :vision
+  attr_accessor :army_name, :damage, :health, :vision, :attack_distance
 
-  def initialize(army_name, x = 0, y = 0, damage = 5, health = 100, vision = 5, rules = [])
+  def initialize(army_name, x = 0, y = 0, damage = 5, health = 100, vision = 5, rules = [], attack_distance = 3)
     super(x, y, rules)
     @army_name = army_name
     @damage = damage
@@ -13,6 +13,7 @@ class Unit < WarObject
     @vision = vision
     @production_system = ProductionSystem.new
     @previous_rule = Hash.new
+    @attack_distance = attack_distance
     @rules[8].shuffle! unless @rules[8].nil?
   end
 
