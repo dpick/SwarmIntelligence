@@ -8,8 +8,8 @@ class EmergentWar
   def initialize(height, width)
     @field = Field.new(height, width)
     @config = YAML::load_file("config.yml")
-    @field.generate_units("david", @config["num_units"], @config["david_rules"])
-    @field.generate_units("mark", @config["num_units"], @config["mark_rules"])
+    @field.generate_units("david", @config["num_david"], @config["david_rules"])
+    @field.generate_units("mark", @config["num_mark"], @config["mark_rules"])
     @field.generate_obstacles(@config["num_walls"])
   end
 
