@@ -1,5 +1,4 @@
 require 'war_object'
-require 'pp'
 require 'production_system'
 
 class Unit < WarObject

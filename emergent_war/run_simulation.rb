@@ -1,10 +1,7 @@
 require 'emergent_war'
-require 'pp'
 
-Shoes.app(:width => 700, :height => 700) {
-  fill red
-
-  @emergent_war = EmergentWar.new(70, 70)
+Shoes.app(:width => 500, :height => 500) {
+  @emergent_war = EmergentWar.new(50, 50)
 
   @emergent_war.objects.each do |object|
     if object.class == Unit

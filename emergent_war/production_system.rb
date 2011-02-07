@@ -20,6 +20,10 @@ class ProductionSystem
     move_towards_unit(unit, field, field.visible_enemies(unit))
   end
 
+  def move_away_from_enemy(unit, field)
+    move_away_from_unit(unit, field, field.visible_enemies(unit))
+  end
+
   def move_left(unit, field)
     move(unit, field, unit.x - 1, unit.y)
   end
@@ -55,6 +59,19 @@ class ProductionSystem
     end
 
     ave_pos.map! { |coord| coord / unit_list.size }
+  end
+
+  def move_away_from_unit(unit, field, visible_units)
+    aveX, aveY = ave_position(visible_units)
+
+    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.95 }
+
+    action = lambda do |unit, field|
+      newX, newY = unit.direction_towards(aveX, aveY)
+      move(unit, field, unit.x + newX * -1, unit.y + newY * -1)
+    end
+
+    run_rule(conditional, action, unit, field)
   end
 
   def move_towards_unit(unit, field, visible_units)

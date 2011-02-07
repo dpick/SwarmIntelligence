@@ -1,6 +1,5 @@
 require 'field'
 require 'yaml'
-require 'pp'
 
 class EmergentWar
   attr_accessor :field
