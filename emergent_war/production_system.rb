@@ -1,17 +1,20 @@
 class ProductionSystem
 
-  MOVEMENTS = [["left", -1, 0],
-               ["right", 1, 0],
-               ["up", 0, 1],
-               ["down", 0, -1],
-               ["upright", 1, 1],
-               ["upleft", -1, 1],
-               ["downleft", -1, -1],
-               ["downright", 1, -1]]
+  MOVEMENTS = [["left",      -1,   0],
+               ["right",      1,   0],
+               ["up",         0,   1],
+               ["down",       0,  -1],
+               ["upright",    1,   1],
+               ["upleft",    -1,   1],
+               ["downleft",  -1,  -1],
+               ["downright",  1,  -1]]
+
 
   def initialize
     MOVEMENTS.each do |direction, dx, dy|
-      self.class.send(:define_method, "move_#{direction}") { |unit, field| move(unit, field, unit.x + dx, unit.y + dy) }
+      self.class.send(:define_method, "move_#{direction}") do |unit, field| 
+        move(unit, field, unit.x + dx, unit.y + dy)
+      end
     end
   end
 
