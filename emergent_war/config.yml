@@ -1,6 +1,6 @@
 num_david: 30
 num_mark: 30
-num_walls: 0
+num_walls: 20
 vision: 25
 damage: 5
 attack_distance: 2
@@ -8,13 +8,19 @@ attack_distance: 2
 mark_rules:
   1:
     - :attack_opponent
-  2:
-    - :move_away_from_enemy
+  #2:
+  #  - :move_away_from_enemy
+  #3:
+  #  - :move_towards_teammate
   8:
     - :move_down
+    - :move_upright
     - :move_right
+    - :move_downleft
     - :move_up
+    - :move_upleft
     - :move_left
+    - :move_downright
 
 david_rules:
   1:
@@ -25,9 +31,13 @@ david_rules:
     - :move_towards_teammate
   8:
     - :move_down
+    - :move_upright
     - :move_right
+    - :move_downleft
     - :move_up
+    - :move_upleft
     - :move_left
+    - :move_downright
 
 wall_rules:
   -

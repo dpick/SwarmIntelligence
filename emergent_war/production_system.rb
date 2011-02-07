@@ -1,5 +1,20 @@
 class ProductionSystem
 
+  MOVEMENTS = [["left", -1, 0],
+               ["right", 1, 0],
+               ["up", 0, 1],
+               ["down", 0, -1],
+               ["upright", 1, 1],
+               ["upleft", -1, 1],
+               ["downleft", -1, -1],
+               ["downright", 1, -1]]
+
+  def initialize
+    MOVEMENTS.each do |direction, dx, dy|
+      self.class.send(:define_method, "move_#{direction}") { |unit, field| move(unit, field, unit.x + dx, unit.y + dy) }
+    end
+  end
+
   def attack_opponent(unit, field)
     conditional = lambda { |unit, field| not field.attackable_units(unit).empty? }
 
@@ -22,22 +37,6 @@ class ProductionSystem
 
   def move_away_from_enemy(unit, field)
     move_away_from_unit(unit, field, field.visible_enemies(unit))
-  end
-
-  def move_left(unit, field)
-    move(unit, field, unit.x - 1, unit.y)
-  end
-
-  def move_right(unit, field)
-    move(unit, field, unit.x + 1, unit.y)
-  end
-
-  def move_up(unit, field)
-    move(unit, field, unit.x, unit.y + 1)
-  end
-
-  def move_down(unit, field)
-    move(unit, field, unit.x, unit.y - 1)
   end
 
   ############################################
