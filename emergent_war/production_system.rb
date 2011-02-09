@@ -42,6 +42,10 @@ class ProductionSystem
     move_away_from_unit(unit, field, field.visible_enemies(unit))
   end
 
+  def move_away_from_teammates(unit, field)
+    move_away_from_unit(unit, field, field.visible_teammates(unit))
+  end
+
   ############################################
   # Helper Methods
   ############################################
