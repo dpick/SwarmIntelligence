@@ -1,3 +1,4 @@
+require 'pp'
 class ProductionSystem
 
   MOVEMENTS = [["left",      -1,   0],
@@ -15,6 +16,14 @@ class ProductionSystem
       self.class.send(:define_method, "move_#{direction}") do |unit, field| 
         move(unit, field, unit.x + dx, unit.y + dy)
       end
+    end
+  end
+
+  def avoid_enemy_group(unit, field)
+    conditional = lambda { |unit, field| field.visible_enemies(unit).size > field.visible_teammates(unit).size }
+
+    action = lambda do |unit, field|
+      move_away_from_enemies(unit, field)
     end
   end
 
@@ -38,7 +47,7 @@ class ProductionSystem
     move_towards_unit(unit, field, field.visible_enemies(unit))
   end
 
-  def move_away_from_enemy(unit, field)
+  def move_away_from_enemies(unit, field)
     move_away_from_unit(unit, field, field.visible_enemies(unit))
   end
 
@@ -69,24 +78,24 @@ class ProductionSystem
 
   def move_away_from_unit(unit, field, visible_units)
     aveX, aveY = ave_position(visible_units)
+    return false if aveX.nil? || aveY.nil?
+    newX, newY = unit.direction_towards(aveX, aveY).map! { |i| i * -1 }
 
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.95 }
-
-    action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(aveX, aveY)
-      move(unit, field, unit.x + newX * -1, unit.y + newY * -1)
-    end
-
-    run_rule(conditional, action, unit, field)
+    move_direction(unit, field, newX, newY)
   end
 
   def move_towards_unit(unit, field, visible_units)
     aveX, aveY = ave_position(visible_units)
+    return false if aveX.nil? || aveY.nil?
+    newX, newY = unit.direction_towards(aveX, aveY)
 
-    conditional = lambda { |unit, field| aveX != nil && aveY != nil && rand < 0.95 }
+    move_direction(unit, field, newX, newY)
+  end
+
+  def move_direction(unit, field, newX, newY)
+    conditional = lambda { |unit, field| rand < 0.95 }
 
     action = lambda do |unit, field|
-      newX, newY = unit.direction_towards(aveX, aveY)
       move(unit, field, unit.x + newX, unit.y + newY)
     end
 
