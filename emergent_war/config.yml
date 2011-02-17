@@ -1,15 +1,21 @@
-num_david: 20
+num_david: 40
 num_mark: 40
-num_walls: 0
+num_walls: 50
 vision: 35
 damage: 4
 attack_distance: 2
+# Available Rules
+# ----------------
+# avoid_enemy_group
+# attack_opponent
+# move_towards_teammate
+# move_towards_enemy
+# move_away_from_enemies
+# move_away_from_teammates
 
 mark_rules:
   1:
     - :attack_opponent
-  #3:
-  #  - :avoid_enemy_group
   8:
     - :move_down
     - :move_upright

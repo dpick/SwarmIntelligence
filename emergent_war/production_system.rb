@@ -1,4 +1,3 @@
-require 'pp'
 class ProductionSystem
 
   MOVEMENTS = [["left",      -1,   0],
