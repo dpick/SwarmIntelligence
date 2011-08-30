@@ -56,7 +56,6 @@ class Path
       visit_cities
       shorter_path?
       update_phermones
-      reset_ants
     end
 
     print_finished_info
